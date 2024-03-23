@@ -36,13 +36,19 @@ async function login(e){
     password.value = "";
     M.Modal.getInstance(myModal[1]).close(); 
 }
+
 function logout(e){
     firebase.auth().signOut();
+    document.querySelector('#proimg').src = "./assets/noimage.png";
 }
+
 const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         getUserInfoRealTime(user.uid);
         //getUserInfo(user.uid);
+        document.getElementById('loginli').style.display='none';
+        document.getElementById('signupli').style.display='none';
+        document.getElementById('logoutli').style.display='block';
         if(user.uid  == 'ECjh1qDuKkMCfCbQleO2MLYsRqX2'){
             allUserDetails();
         }
@@ -50,6 +56,9 @@ const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
         getUserInfoRealTime(null);
         //getUserInfo(null);
         document.getElementById('table').style.display='none';
+        document.getElementById('logoutli').style.display='none';
+        document.getElementById('loginli').style.display='block';
+        document.getElementById('signupli').style.display='block';
         M.toast({html:"signout success", classes:'green'})    
     }
   });

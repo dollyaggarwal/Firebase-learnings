@@ -108,6 +108,7 @@ function uploadImage(e) {
 		() => {
 			uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 				console.log('File available at', downloadURL);
+				document.querySelector('#proimg').src = downloadURL
 				firebase.auth().currentUser.updateProfile({
 					photoURL: downloadURL,
 					displayName: 'Ninja Coder',
