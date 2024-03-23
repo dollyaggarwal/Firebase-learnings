@@ -41,10 +41,15 @@ function logout(e){
 }
 const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log(user);
-        getUserInfo(user.uid);
+        getUserInfoRealTime(user.uid);
+        //getUserInfo(user.uid);
+        if(user.uid  == 'ECjh1qDuKkMCfCbQleO2MLYsRqX2'){
+            allUserDetails();
+        }
     } else {
-        getUserInfo(null);
+        getUserInfoRealTime(null);
+        //getUserInfo(null);
+        document.getElementById('table').style.display='none';
         M.toast({html:"signout success", classes:'green'})    
     }
   });
@@ -55,7 +60,7 @@ async function loginWithGoogle(){
         var provider = new firebase.auth.GoogleAuthProvider();
        const result = await firebase.auth()
       .signInWithPopup(provider);
-      console.log(result);
+    
       M.Modal.getInstance(myModal[0]).close(); 
       M.Modal.getInstance(myModal[1]).close(); 
     }catch(err){
